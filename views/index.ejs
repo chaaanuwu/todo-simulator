@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List Simulator</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <main style="background-color: #02011c;" class="vh-100 w-100">
+        <div class="d-flex justify-content-center p-4">
+            <h1 class="text-white">ToDo List Simulator</h1>
+        </div>
+
+        <div class="container">
+            <div class="d-flex justify-content-end mb-4">
+                <button id="add-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
+                    Add Task
+                </button>
+            </div>
+
+            <div class="row">
+                <% todos.forEach(todo=> { %>
+                    <%- include("partials/todo-item", { todo: todo }) %>
+                        <% }) %>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Partial -->
+    <%- include("partials/modal", { modalTitle: "Add Task" , modalAction: "/add" }) %>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            const taskInput = document.getElementById('taskInput');
+            const taskId = document.getElementById('taskId');
+            const taskForm = document.getElementById('taskForm');
+            const addBtn = document.getElementById('add-btn');
+
+            // Add Task button
+            addBtn.addEventListener('click', () => {
+                taskInput.value = '';
+                taskId.value = '';
+                taskForm.action = '/add';
+                document.getElementById('taskModalLabel').innerText = 'Add Task';
+            });
+
+            // Edit buttons
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = button.getAttribute('data-id');
+                    const task = button.getAttribute('data-task');
+
+                    taskInput.value = task;
+                    taskId.value = id;
+                    taskForm.action = '/update/' + id;
+                    document.getElementById('taskModalLabel').innerText = 'Update Task';
+                });
+            });
+        </script>
+</body>
+
+</html>

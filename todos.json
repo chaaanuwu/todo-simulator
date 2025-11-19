@@ -1,0 +1,7 @@
+[
+  { "id": 1, "task": "Wake up and meditate", "completed": false },
+  { "id": 2, "task": "Have breakfast", "completed": false },
+  { "id": 3, "task": "Go for a morning walk", "completed": false },
+  { "id": 4, "task": "Work on project tasks", "completed": false },
+  { "id": 5, "task": "Read a book before bed", "completed": false }
+]
